@@ -41,6 +41,10 @@ public class Pelota {
 		this.y = this.y + Math.sin(anguloDireccion);
 	}
 	
+	/**
+	 * Esto hace rebotar la pelota
+	 * @param entorno
+	 */
 	public void rebotar(Entorno entorno) {
 		if(y - (this.diametro)/2 <= 0 || 
 				y + (this.diametro/2) >= entorno.alto()) {

@@ -14,6 +14,7 @@ public class Juego extends InterfaceJuego
 	// Variables y métodos propios de cada grupo
 	int n;
 	Pelota pelota;
+	Barra barra;
 	
 	Juego()
 	{
@@ -23,6 +24,7 @@ public class Juego extends InterfaceJuego
 		// Inicializar lo que haga falta para el juego
 		n = 0;
 		pelota = new Pelota(100, 100);
+		barra = new Barra(entorno.ancho()/2, entorno.alto());
 
 		// Inicia el juego!
 		this.entorno.iniciar();
@@ -40,17 +42,39 @@ public class Juego extends InterfaceJuego
 		// ...
 		// Para moverlo horizontalmente necesitamos alterar el eje x
 		// En cada tick hacemos avanzar el eje x
-		// int n = 0;
-		//entorno.dibujarRectangulo(n, entorno.alto()/2, 200, 200, 0, Color.BLUE);
-		//n++;
-		//System.out.println("n: " + n );
 		
 		if(pelota.colisionaConElBorde(entorno)) {
 			pelota.rebotar(entorno);
 		}
 		
 		pelota.dibujar(entorno);
+		barra.dibujar(entorno);
+		
+		// Movimientos
+		if(sePresionoIzq() && !estaEnElBordeIzquierdo(barra.getX() - barra.getAncho()/2))
+			barra.moverIzquierda();
+		if(sePresionoDer() && !estaEnElBordeDerecho(barra.getX() + barra.getAncho()/2))
+			barra.moverDerecha();
+		
 		pelota.mover();
+		
+		// Colisiones
+	}
+	
+	public boolean sePresionoIzq() {
+		return entorno.estaPresionada('a') || entorno.estaPresionada(entorno.TECLA_IZQUIERDA);
+	}
+	
+	public boolean sePresionoDer() {
+		return entorno.estaPresionada('d') || entorno.estaPresionada(entorno.TECLA_DERECHA);
+	}
+	
+	public boolean estaEnElBordeDerecho(int x) {
+		return x >= entorno.ancho();
+	}
+	
+	public boolean estaEnElBordeIzquierdo(int x) {
+		return x <= 0;
 	}
 	
 	
