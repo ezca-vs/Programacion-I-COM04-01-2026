@@ -2,8 +2,10 @@ package ejemploentorno;
 
 
 import java.awt.Color;
+import java.awt.Image;
 
 import entorno.Entorno;
+import entorno.Herramientas;
 import entorno.InterfaceJuego;
 
 public class Juego extends InterfaceJuego
@@ -16,6 +18,10 @@ public class Juego extends InterfaceJuego
 	Pelota pelota;
 	Barra barra;
 	
+	// Imagenes
+	//private static String rutaImagen = "assets/princesa-mini.jpg";
+	//private static String rutaPelota = "assets/pelota.png";
+	
 	Juego()
 	{
 		// Inicializa el objeto entorno
@@ -25,7 +31,6 @@ public class Juego extends InterfaceJuego
 		n = 0;
 		pelota = new Pelota(100, 100);
 		barra = new Barra(entorno.ancho()/2, entorno.alto());
-
 		// Inicia el juego!
 		this.entorno.iniciar();
 	}
@@ -59,6 +64,13 @@ public class Juego extends InterfaceJuego
 		pelota.mover();
 		
 		// Colisiones
+		double bordeDebajoPelota = pelota.getY() + (pelota.getDiametro()/2);
+		double bordeArribaBarra = barra.getY() - (barra.getAlto()/2);
+		double x1 = barra.getX() - barra.getAncho()/2;
+		double x2 = barra.getX() + barra.getAncho()/2;
+		if( bordeDebajoPelota > bordeArribaBarra) {
+			pelota.rebotar(x1,x2,bordeArribaBarra, null);
+		}
 	}
 	
 	public boolean sePresionoIzq() {

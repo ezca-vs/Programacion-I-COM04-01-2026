@@ -1,6 +1,7 @@
 package ejemploentorno;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import entorno.Entorno;
 
@@ -11,6 +12,7 @@ public class Barra {
 	private int x;
 	private int y;
 	private int velocidad;
+	private Image imagen;
 	
 	public Barra(int x, int y) {
 		this.x = x;
@@ -22,6 +24,7 @@ public class Barra {
 	
 	public void dibujar(Entorno entorno) {
 		entorno.dibujarRectangulo(x, y, ancho, alto, 0, Color.CYAN);
+	
 	}
 	
 	public void moverDerecha() {
@@ -49,6 +52,9 @@ public class Barra {
 	
 	public int getAncho() {
 		return ancho;
+	}
+	public int getAlto() {
+		return alto;
 	}
 	
 	

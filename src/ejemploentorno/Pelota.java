@@ -1,6 +1,7 @@
 package ejemploentorno;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import entorno.Entorno;
 
@@ -16,6 +17,7 @@ public class Pelota {
 	double anguloDireccion; // En radianes
 	int velocidad;
 	Color color;
+	private Image image;
 	
 	public Pelota(double x, double y) {
 		this.diametro = 30;
@@ -24,6 +26,7 @@ public class Pelota {
 		this.velocidad = 2;
 		this.anguloDireccion = 0.5;
 		this.color = Color.WHITE;
+		this.image = image;
 	}
 	
 	/**
@@ -37,8 +40,8 @@ public class Pelota {
 	 * Permite mover la pelota dentro del entorno
 	 */
 	public void mover() {
-		this.x = this.x + Math.cos(anguloDireccion);
-		this.y = this.y + Math.sin(anguloDireccion);
+		this.x = this.x + Math.cos(anguloDireccion)*5;
+		this.y = this.y + Math.sin(anguloDireccion)*5;
 	}
 	
 	/**
@@ -75,10 +78,79 @@ public class Pelota {
 		}
 		// y = entorno.alto() borde debajo
 		if(bordeAbajoPelota >= entorno.alto()) {
-			return true;
+			return false;
 		}
 		
 		return false;
 	}
+	
+	public void rebotar(Double x1, Double x2, Double y1, Double y2) {
+		double radio = this.getDiametro()/2;
+		double bordeDerechoPelota = this.x + radio;
+		double bordeIzquierdoPelota = this.x - radio;
+		boolean estaDentroHorizontalmente = x1 <= bordeDerechoPelota &&
+												x2 >= bordeIzquierdoPelota;	
+		if(this.y + diametro/2  > y1 && estaDentroHorizontalmente) {
+			this.anguloDireccion = this.anguloDireccion * (-1); 
+		}
+	}
+
+	public int getDiametro() {
+		return diametro;
+	}
+
+	public void setDiametro(int diametro) {
+		this.diametro = diametro;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double getAnguloDireccion() {
+		return anguloDireccion;
+	}
+
+	public void setAnguloDireccion(double anguloDireccion) {
+		this.anguloDireccion = anguloDireccion;
+	}
+
+	public int getVelocidad() {
+		return velocidad;
+	}
+
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
+	
 
 }
